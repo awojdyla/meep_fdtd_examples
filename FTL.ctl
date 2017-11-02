@@ -1,0 +1,81 @@
+(define-param tkns 0.5)
+(define-param theta 17)
+(define-param w0 10.0)
+
+(define-param x1 (cos (* (- 90 theta) 0.01745)))
+
+(set! geometry-lattice (make lattice (size 32 16 no-size)))
+(set! geometry (list
+	(make block (center -8 0) (size infinity tkns infinity)
+		(e1 x1 1 0)(e2 1 (- x1) 0)(e3 0 0 1)
+		(material (make dielectric (epsilon 12)))
+	)
+	(make block (center -7 0) (size infinity tkns infinity)
+		(e1 x1 1 0)(e2 1 (- x1) 0)(e3 0 0 1)
+		(material (make dielectric (epsilon 12)))
+	)
+	(make block (center -6 0) (size infinity tkns infinity)
+		(e1 x1 1 0)(e2 1 (- x1) 0)(e3 0 0 1)
+		(material (make dielectric (epsilon 12)))
+	)
+	(make block (center -5 0) (size infinity tkns infinity)
+		(e1 x1 1 0)(e2 1 (- x1) 0)(e3 0 0 1)
+		(material (make dielectric (epsilon 12)))
+	)
+	(make block (center -4 0) (size infinity tkns infinity)
+		(e1 x1 1 0)(e2 1 (- x1) 0)(e3 0 0 1)
+		(material (make dielectric (epsilon 12)))
+	)
+	(make block (center -3 0) (size infinity tkns infinity)
+		(e1 x1 1 0)(e2 1 (- x1) 0)(e3 0 0 1)
+		(material (make dielectric (epsilon 12)))
+	)
+	(make block (center -2 0) (size infinity tkns infinity)
+		(e1 x1 1 0)(e2 1 (- x1) 0)(e3 0 0 1)
+		(material (make dielectric (epsilon 12)))
+	)
+	(make block (center -1 0) (size infinity tkns infinity)
+		(e1 x1 1 0)(e2 1 (- x1) 0)(e3 0 0 1)
+		(material (make dielectric (epsilon 12)))
+	)
+	(make block (center 0 -4) (size 32 8  infinity)
+		(e1 1 0 0)(e2 0 1 0)(e3 0 0 1)
+		(material (make dielectric (epsilon 1)))
+	)
+))
+
+(define (pulse t)
+	(* (exp (- (sqr (/ (- t 6) 2)))) (cos (* t w0)))
+)
+
+(define (gauss p)
+	(exp (- (sqr (/ (vector3-y p) 2 ))))
+)
+
+(set! sources (list
+	(make source
+		(src (make custom-src 
+			(src-func pulse)))
+		(component Ey)
+                (center -15 -4)
+		(size 0 16 0)
+		(amp-func gauss)
+	)
+	(make source
+		(src (make custom-src 
+			(src-func pulse)))
+		(component Ey)
+                (center -15 4)
+		(size 0 16 4)
+		(amp-func gauss)
+	)
+))
+
+(set! pml-layers (list (make pml (thickness 1.0))))
+
+(set! resolution 32)
+
+(run-until 32 
+	(at-beginning output-epsilon)
+	(to-appended "TM" (at-every 1 output-hfield-z))
+)
