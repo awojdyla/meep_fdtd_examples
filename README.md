@@ -62,7 +62,7 @@ Frustrated total internal reflection occurs when a surface is within a wavelengt
 
 [![](http://img.youtube.com/vi/fOqF6t6A4O4/0.jpg)](http://www.youtube.com/watch?v=fOqF6t6A4O4 "Frustrated total Internal reflection")
 
-It's also interesting to notice that the beam exits the two 45 deg prisms with an additional angle (it is not parallel to the interface.) The beam being tunneled also happen to have no phase shift, but somehow a smaller bandwidth, with larger wavelength dominating (high frequency get less "tunnelled.")
+It's also interesting to notice that the tunnelled beam exits the second 45 deg prisms with an additional angle (it is not parallel to the interface.) The beam being tunneled also happen to have no phase shift, but somehow a smaller bandwidth, with larger wavelength dominating (high frequency get less "tunnelled.")
 
 ### Faster than light experiments
 `TFL.ctl` is a case of frustrated total internal reflection where light would in principle appears to move faster than light, because optical tunelling has an undetermined self-time. But it turns out to be just an effect of phase velocity if you think about it. 
